@@ -14,7 +14,6 @@ function createWindow() {
       contextIsolation: false
     },
   });
- 
   mainWindow.webContents.setWindowOpenHandler((edata) => {
     shell.openExternal(edata.url);
     return { action: "deny" };
