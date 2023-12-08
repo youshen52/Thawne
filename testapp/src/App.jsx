@@ -1,12 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import ChatList from './components/ChatList'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
+
     <div class="container mx-auto">
     <div class="max-w-2xl border rounded">
       <div>
@@ -85,6 +83,7 @@ function App() {
     </div>
   </div>
   )
+
 }
 
 export default App
