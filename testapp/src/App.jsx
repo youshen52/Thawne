@@ -13,7 +13,7 @@ function App() {
           <SearchBar/>
           <ChatList/>
         </div>
-        <div className='container w-full overflow-auto'>
+        <div className='container w-screen overflow-auto'>
           <ChatView/>
         </div>
     </div>
