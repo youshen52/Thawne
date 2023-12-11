@@ -1,21 +1,7 @@
 import React, { useState } from "react";
 
-function ChatList() {
-  const chats = [
-    { name: 'Lewis', message: 'kukubird' },
-    { name: 'You Shen', message: 'Bicep curls/shoulder press ftw' },
-    { name: 'Snir', message: 'it is football, not soccer' },
-    { name: 'Boon Ping', message: 'The glaze is real' },
-    { name: 'You Shen', message: 'Bicep curls/shoulder press ftw' },
-    { name: 'Snir', message: 'it is football, not soccer' },
-    { name: 'Boon Ping', message: 'The glaze is real' },
-    { name: 'You Shen', message: 'Bicep curls/shoulder press ftw' },
-    { name: 'Snir', message: 'it is football, not soccer' },
-    { name: 'Boon Ping', message: 'The glaze is real' },
-    { name: 'You Shen', message: 'Bicep curls/shoulder press ftw' },
-    { name: 'Snir', message: 'it is football, not soccer' },
-    { name: 'Boon Ping', message: 'The glaze is real' }
-  ];
+function ChatList(props) {
+  const chats = props.chats
 
   const [activeChat, setActiveChat] = useState(null);
 
@@ -28,7 +14,7 @@ function ChatList() {
             <ul className="overflow-scrow h-[32rem]">
               <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats ({chats.length})</h2>
               {chats.map((chat, index) => (
-                <li key={index} onClick={() => handleChatClick(index)}>
+                <li key={chat.id} onClick={() => handleChatClick(index)}>
                   <a
                     className={activeChat === index ? "flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer focus:outline-none bg-gray-300" : "flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-200 focus:outline-none"}
                   >

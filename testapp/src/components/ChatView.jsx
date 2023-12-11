@@ -3,6 +3,7 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 
 function ChatView() {
+
   const [messages, setMessages] = useState([
     { text: 'Hi', sender: 'other' },
     { text: 'Hello', sender: 'user' },
