@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 
+
+// function ChatView() {
+
+//   const [messages, setMessages] = useState([
+//     { text: 'Hi', sender: 'other' },
+//     { text: 'Hello', sender: 'user' },
+//   ]);
+
 function ChatView({ selectedChat }) {
   const [messages, setMessages] = useState([]);
 
@@ -15,6 +23,7 @@ function ChatView({ selectedChat }) {
       setMessages([]);
     }
   }, [selectedChat]);
+
 
   const handleSendMessage = (messageText) => {
     const newMessage = { text: messageText, sender: 'user' };

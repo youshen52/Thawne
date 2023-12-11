@@ -1,5 +1,11 @@
+import { Link } from "react-router-dom"
+
+
+
+
 
 function NavBar(){
+
     return(
         <>
             <div className="flex bg-gray-800 justify-between ">
@@ -11,6 +17,11 @@ function NavBar(){
                     <button className="bg-transparent">
                         <ion-icon name="log-out-outline"></ion-icon>
                     </button>
+                    <button>
+                        <Link to="/createChat"></Link>
+                    </button>
+
+                    
                 </div>
             </div>
         </>
