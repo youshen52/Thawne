@@ -7,7 +7,6 @@ import ChatView from './ChatView';
 const ChatPage = ({ handleChatSelect, selectedChat }) => {
   return (
     <>
-      <NavBar />
       <div className="flex bg-white h-full">
         <div className="basis-2/6 overflow-auto">
           <SearchBar />

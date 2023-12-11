@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import ChatPage from './components/ChatPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './components/Login'
-import CreateChat from './components/CreateChat';
+import Login from './components/Login';
+import NavBar from './components/NavBar';
+import NavBarModal from './components/NavBarModal';
 
 
 function App() {
   const [selectedChat, setSelectedChat] = useState(null);
   const [token, setToken] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleChatSelect = (chat) => {
+    setSelectedChat(chat);
+  };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   if(!token) {
     return <Login setToken={setToken} />
@@ -18,15 +30,25 @@ function App() {
 
   return (
     <>
-        <div className="wrapper">
-      <h1>Application</h1>
-      <Router>
-        <Routes>
-        <Route path="/chats" element={<ChatPage handleChatSelect={handleChatSelect} selectedChat={selectedChat} />} />
-        </Routes>
-      </Router>
-    </div>
-
+      <div className="wrapper flex-1">
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <NavBar openModal={openModal} />
+                  <ChatPage
+                    handleChatSelect={handleChatSelect}
+                    selectedChat={selectedChat}
+                  />
+                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                </>
+              }
+            />
+          </Routes>
+        </Router>
+      </div>
     </>
   );
 }

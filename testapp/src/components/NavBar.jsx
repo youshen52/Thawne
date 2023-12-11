@@ -1,10 +1,4 @@
-import { Link } from "react-router-dom"
-
-
-
-
-
-function NavBar(){
+function NavBar({ openModal }){
 
     return(
         <>
@@ -17,8 +11,8 @@ function NavBar(){
                     <button className="bg-transparent">
                         <ion-icon name="log-out-outline"></ion-icon>
                     </button>
-                    <button>
-                        <Link to="/createChat"></Link>
+                    <button className="bg-transparent" onClick={openModal}>
+                        <ion-icon name="add-outline"></ion-icon>
                     </button>
 
                     

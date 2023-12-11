@@ -32,7 +32,7 @@ function ChatList({ onChatSelect }) {
   return (
     <>
 
-            <ul className="overflow-scrow h-[32rem]">
+            <ul className="overflow-auto h-[47rem]">
               <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats ({chats.length})</h2>
               {chats.map((chat, index) => (
                 <li key={chat.id} onClick={() => handleChatClick(index)}>
