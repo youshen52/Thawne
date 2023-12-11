@@ -28,6 +28,7 @@ function NavBarModal({ closeModal }) {
             generalWrite: true,
           }}
           validationSchema={chatSchema}
+
           onSubmit={(values) => {
             console.log(values);
             closeModal();

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import ChatPage from './components/ChatPage';
+import SettingsPage from './components/SettingsPage';
+import Settings from './components/Settings';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import NavBarModal from './components/NavBarModal';
+
 
 
 function App() {
@@ -42,6 +45,16 @@ function App() {
                     handleChatSelect={handleChatSelect}
                     selectedChat={selectedChat}
                   />
+                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                </>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <>
+                  <NavBar openModal={openModal} />
+                  <Settings/>
                   {isModalOpen && <NavBarModal closeModal={closeModal} />}
                 </>
               }
