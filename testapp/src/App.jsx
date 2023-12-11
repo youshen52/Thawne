@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
-import ChatList from './components/ChatList';
-import ChatView from './components/ChatView';
-import SearchBar from './components/SearchBar';
-import NavBar from './components/NavBar';
+import ChatPage from './components/ChatPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';import Login from './components/Login'
 
 function App() {
   const [selectedChat, setSelectedChat] = useState(null);
+  const [token, setToken] = useState();
 
   const handleChatSelect = (chat) => {
     setSelectedChat(chat);
   };
 
+  if(!token) {
+    return <Login setToken={setToken} />
+  }
+
+
   return (
     <>
-      <NavBar />
-      <div className="flex bg-white h-full">
-        <div className="basis-2/6 overflow-auto">
-          <SearchBar />
-          <ChatList onChatSelect={handleChatSelect} />
-        </div>
-        <div className="container w-screen overflow-auto">
-          <ChatView selectedChat={selectedChat} />
-        </div>
-      </div>
+        <div className="wrapper">
+      <h1>Application</h1>
+      <Router>
+        <Routes>
+        <Route path="/chats" element={<ChatPage handleChatSelect={handleChatSelect} selectedChat={selectedChat} />} />
+        </Routes>
+      </Router>
+    </div>
+
     </>
   );
 }
