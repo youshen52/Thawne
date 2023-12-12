@@ -1,41 +1,85 @@
 import React from 'react';
-import { object, string, array, boolean } from 'yup';
-import { Formik, Form, Field } from 'formik';
+import { object, string, array, boolean, number } from 'yup';
+import { Formik, Form, Field, FieldArray, useFormik } from 'formik';
+import {Grid, Typography, Button,} from '@mui/material'
 import * as Yup from 'yup';
+import { useState } from 'react';
+
+
+async function createChat(chatValues) {
+  return fetch('http://localhost:5000/createchat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(chatValues)
+  })
+    .then(data => data.json())
+ }
 
 function NavBarModal({ closeModal }) {
   const chatSchema = Yup.object({
-    chatName: Yup.string().required('Required').max(30),
+    userId: Yup.mixed().required('Required'),
+    chatName: Yup.string().required('Required').max(30, 'Maximum length reached'),
     chatDescription: Yup.string().max(50, 'Maximum length reached'),
-    securityLevel: Yup.string().oneOf(['open', 'sensitive', 'top secret'], 'Choose one'),
-    listOfUsers: Yup.array().max(10, 'Maximum of 10 users allowed').required('Need users to create'),
+    securityLevel: Yup.string().oneOf(['open', 'sensitive', 'top secret']).required('Choose Security Level'),
+    listOfUsers: Yup.array().min(3, 'Minimum of 3 users in Group Chat').max(10, 'Maximum of 10 users allowed').required('Need users to create'),
     generalRead: Yup.boolean().default(true),
     generalWrite: Yup.boolean().default(true),
   });
 
+  
+
+
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center">
       <div className="bg-black bg-opacity-50 w-full h-full fixed"></div>
-      <div className="bg-white p-8 rounded shadow-md z-10">
+      <div className="bg-white p-8 rounded shadow-md z-10 w-3/5">
         <h1 className="text-2xl font-bold mb-4 text-black">Create Chat</h1>
         <Formik
           initialValues={{
+            userId: '',
             chatName: '',
             chatDescription: '',
             securityLevel: '',
-            listOfUsers: [],
+            listOfUsers: [{
+              username: ''
+            }],
             generalRead: true,
             generalWrite: true,
           }}
           validationSchema={chatSchema}
 
           onSubmit={(values) => {
-            console.log(values);
-            closeModal();
+            async function createChat(chatValues) {
+              return fetch('http://localhost:5000/createchat', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(chatValues)
+              })
+                .then(data => data.json())
+             }
           }}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, values }) => (
             <Form className="space-y-4">
+              <div className="flex flex-col">
+                <label htmlFor="userId" className="text-sm text-black font-semibold">
+                  User Id
+                </label>
+                <Field
+                  type="text"
+                  id="userId"
+                  name="userId"
+                  
+                  className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
+                />
+                {errors.userId && touched.userId ? (
+                  <div className="text-red-500">{errors.userId}</div>
+                ) : null}
+              </div>
               <div className="flex flex-col">
                 <label htmlFor="chatName" className="text-sm text-black font-semibold">
                   Chat Name
@@ -44,6 +88,7 @@ function NavBarModal({ closeModal }) {
                   type="text"
                   id="chatName"
                   name="chatName"
+                  
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
                 />
                 {errors.chatName && touched.chatName ? (
@@ -59,6 +104,7 @@ function NavBarModal({ closeModal }) {
                   type="text"
                   id="chatDescription"
                   name="chatDescription"
+                  
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
                 />
                 {errors.chatDescription && touched.chatDescription ? (
@@ -74,6 +120,7 @@ function NavBarModal({ closeModal }) {
                   as="select"
                   id="securityLevel"
                   name="securityLevel"
+                  
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
                 >
                   <option value="" label="Select Security Level" />
@@ -87,15 +134,45 @@ function NavBarModal({ closeModal }) {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="listOfUsers" className="text-sm text-black font-semibold">
+                {/* <label htmlFor="listOfUsers" className="text-sm text-black font-semibold">
                   List of users
-                </label>
-                <Field
+                </label> */}
+                {/* <Field
                   type="text"
                   id="listOfUsers"
                   name="listOfUsers"
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
-                />
+                /> */}
+                <FieldArray name='listOfUsers'>
+                  {({push, remove,}) => (
+                      <React.Fragment>
+                            <Grid item>
+                              <Typography variant="p" className='text-gray-800'>New Group</Typography>
+                            </Grid>
+
+                            {values.listOfUsers.map((_, index) =>(
+                              <Grid container item key={index}>
+                                <Grid item xs={12} sm="auto">
+                                    <Field fullWidth name={`listOfUsers[${index}].username`}
+                                    type="text"/>
+                                </Grid>
+
+                                <Grid item xs={12} sm="auto">
+                                  <Button variant="outlined" color='error' size='small' onClick={() => remove(index)}>
+                                    Remove
+                                  </Button>
+                                </Grid>
+                              </Grid>
+                            ))}
+                            <Grid item xs={12} sm="auto">
+                                  <Button variant='text' size='small' onClick={() => push({username:''})}>Add</Button>
+                            </Grid>
+                      </React.Fragment>
+                  )}
+
+                </FieldArray>
+      
+
                 {errors.listOfUsers && touched.listOfUsers ? (
                   <div className="text-red-500">{errors.listOfUsers}</div>
                 ) : null}
@@ -106,6 +183,7 @@ function NavBarModal({ closeModal }) {
                   type="checkbox"
                   id="generalRead"
                   name="generalRead"
+                  
                   className="mr-2"
                 />
                 <label htmlFor="generalRead" className="text-sm text-black">
@@ -118,6 +196,7 @@ function NavBarModal({ closeModal }) {
                   type="checkbox"
                   id="generalWrite"
                   name="generalWrite"
+                  
                   className="mr-2"
                 />
                 <label htmlFor="generalWrite" className="text-sm text-black">
