@@ -1,4 +1,13 @@
+import useToken from './useToken';
+
+
 function NavBar({ openModal }){
+    const { logout } = useToken();
+
+    const handleLogout = () => {
+        logout();
+        window.location.reload();
+      };
 
     return(
         <>
@@ -11,7 +20,7 @@ function NavBar({ openModal }){
                     <button className="bg-transparent">
                         <ion-icon name="settings-sharp"></ion-icon>
                     </button>
-                    <button className="bg-transparent">
+                    <button className="bg-transparent" onClick={handleLogout}>
                         <ion-icon name="log-out-outline"></ion-icon>
                     </button>
 

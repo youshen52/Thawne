@@ -6,12 +6,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import NavBarModal from './components/NavBarModal';
-
+import useToken from './components/useToken';
 
 
 function App() {
   const [selectedChat, setSelectedChat] = useState(null);
-  const [token, setToken] = useState();
+  const { token, setToken } = useToken();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChatSelect = (chat) => {
@@ -25,6 +25,8 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  
 
   if(!token) {
     return <Login setToken={setToken} />
