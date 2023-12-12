@@ -3,7 +3,6 @@ import { object, string, array, boolean, number } from 'yup';
 import { Formik, Form, Field, FieldArray, useFormik } from 'formik';
 import {Grid, Typography, Button,} from '@mui/material'
 import * as Yup from 'yup';
-import { useState } from 'react';
 
 
 async function createChat(chatValues) {
@@ -22,7 +21,7 @@ function NavBarModal({ closeModal }) {
     userId: Yup.mixed().required('Required'),
     chatName: Yup.string().required('Required').max(30, 'Maximum length reached'),
     chatDescription: Yup.string().max(50, 'Maximum length reached'),
-    securityLevel: Yup.string().oneOf(['open', 'sensitive', 'top secret']).required('Choose Security Level'),
+    securityLevel: Yup.string().oneOf(['Open', 'Sensitive', 'Top Secret']).required('Choose Security Level'),
     listOfUsers: Yup.array().min(3, 'Minimum of 3 users in Group Chat').max(10, 'Maximum of 10 users allowed').required('Need users to create'),
     generalRead: Yup.boolean().default(true),
     generalWrite: Yup.boolean().default(true),
@@ -42,25 +41,16 @@ function NavBarModal({ closeModal }) {
             chatName: '',
             chatDescription: '',
             securityLevel: '',
-            listOfUsers: [{
-              username: ''
-            }],
+            listOfUsers: [''],
             generalRead: true,
             generalWrite: true,
           }}
           validationSchema={chatSchema}
 
           onSubmit={(values) => {
-            async function createChat(chatValues) {
-              return fetch('http://localhost:5000/createchat', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(chatValues)
-              })
-                .then(data => data.json())
-             }
+            console.log(values);
+            createChat(values);
+            closeModal();
           }}
         >
           {({ errors, touched, values }) => (
@@ -124,9 +114,9 @@ function NavBarModal({ closeModal }) {
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
                 >
                   <option value="" label="Select Security Level" />
-                  <option value="open" label="Open" />
-                  <option value="sensitive" label="Sensitive" />
-                  <option value="top secret" label="Top Secret" />
+                  <option value="Open" label="Open" />
+                  <option value="Sensitive" label="Sensitive" />
+                  <option value="Top Secret" label="Top Secret" />
                 </Field>
                 {errors.securityLevel && touched.securityLevel ? (
                   <div className="text-red-500">{errors.securityLevel}</div>
@@ -153,7 +143,7 @@ function NavBarModal({ closeModal }) {
                             {values.listOfUsers.map((_, index) =>(
                               <Grid container item key={index}>
                                 <Grid item xs={12} sm="auto">
-                                    <Field fullWidth name={`listOfUsers[${index}].username`}
+                                    <Field fullWidth name={`listOfUsers[${index}]`}
                                     type="text"/>
                                 </Grid>
 
@@ -165,7 +155,7 @@ function NavBarModal({ closeModal }) {
                               </Grid>
                             ))}
                             <Grid item xs={12} sm="auto">
-                                  <Button variant='text' size='small' onClick={() => push({username:''})}>Add</Button>
+                                  <Button variant='text' size='small' onClick={() => push()}>Add</Button>
                             </Grid>
                       </React.Fragment>
                   )}
