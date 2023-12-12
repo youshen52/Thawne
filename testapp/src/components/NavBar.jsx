@@ -1,5 +1,5 @@
 import useToken from './useToken';
-
+import { Link } from "react-router-dom";
 
 function NavBar({ openModal }){
     const { logout } = useToken();
@@ -18,9 +18,10 @@ function NavBar({ openModal }){
                         <ion-icon name="add-outline"></ion-icon>
                     </button>
                     <button className="bg-transparent">
-                        <ion-icon name="settings-sharp"></ion-icon>
+                        <Link to="/settings/profile" className='text-white'><ion-icon name="settings-sharp"></ion-icon></Link>
                     </button>
                     <button className="bg-transparent" onClick={handleLogout}>
+                        
                         <ion-icon name="log-out-outline"></ion-icon>
                     </button>
 

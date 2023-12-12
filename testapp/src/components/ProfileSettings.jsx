@@ -29,7 +29,6 @@ const Settings = () => {
 
   return (
 <div class="mx-4 min-h-screen max-w-screen-xl sm:mx-8 xl:mx-auto">
-  <h1 class="border-b py-6 text-4xl font-semibold">Settings</h1>
   <div class="grid grid-cols-8 pt-3 sm:grid-cols-10">
   <div class="col-span-2 hidden sm:block">
       <ul>

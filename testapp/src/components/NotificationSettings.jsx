@@ -14,7 +14,7 @@ const SettingsSchema = Yup.object().shape({
     }),
 });
 
-const SettingsPage = () => {
+const NotificationSettings = () => {
   const initialValues = {
     username: '',
     email: '',
@@ -105,4 +105,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default NotificationSettings;
