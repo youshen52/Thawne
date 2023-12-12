@@ -26,8 +26,19 @@ function CreateChat() {
                 generalWrite: ''
             }}
             validationSchema={chatSchema}
-            onSubmit={values =>{
-                console.log(values);
+            onSubmit={ async (values) => {
+                const response = await fetch('http://your-flask-api-endpoint', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(values),
+                  });
+
+                if (response) {
+                    console.log(response);
+                }
+                
             }}
             >
              {({ errors, touched}) =>(

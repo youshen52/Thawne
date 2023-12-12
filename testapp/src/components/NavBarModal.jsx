@@ -6,16 +6,6 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 
 
-async function createChat(chatValues) {
-  return fetch('http://localhost:5000/createchat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(chatValues)
-  })
-    .then(data => data.json())
- }
 
 function NavBarModal({ closeModal }) {
   const chatSchema = Yup.object({
@@ -49,19 +39,22 @@ function NavBarModal({ closeModal }) {
             generalWrite: true,
           }}
           validationSchema={chatSchema}
-
-          onSubmit={(values) => {
-            async function createChat(chatValues) {
-              return fetch('http://localhost:5000/createchat', {
+          onSubmit={ async (values) => {
+            const response = await fetch('http://127.0.0.1:5000/createchat', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(chatValues)
-              })
-                .then(data => data.json())
-             }
-          }}
+                body: JSON.stringify(values),
+              });
+
+            if (response) {
+                console.log(response);
+            }
+
+            closeModal();
+            
+        }}
         >
           {({ errors, touched, values }) => (
             <Form className="space-y-4">
