@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ChatPage from './components/ChatPage';
-import SettingsPage from './components/SettingsPage';
-import Settings from './components/Settings';
+import NotificationSettings from './components/NotificationSettings';
+import ProfileSettings from './components/ProfileSettings';
+import DataSettings from './components/DataSettings';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
@@ -52,11 +53,31 @@ function App() {
               }
             />
             <Route
-              path="/settings"
+              path="/settings/profile"
               element={
                 <>
                   <NavBar openModal={openModal} />
-                  <Settings/>
+                  <ProfileSettings/>
+                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                </>
+              }
+            />
+            <Route
+              path="/settings/notifications"
+              element={
+                <>
+                  <NavBar openModal={openModal} />
+                  <NotificationSettings/>
+                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                </>
+              }
+            />
+                        <Route
+              path="/settings/data"
+              element={
+                <>
+                  <NavBar openModal={openModal} />
+                  <DataSettings/>
                   {isModalOpen && <NavBarModal closeModal={closeModal} />}
                 </>
               }

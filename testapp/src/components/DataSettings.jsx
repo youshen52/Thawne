@@ -14,7 +14,7 @@ const SettingsSchema = Yup.object().shape({
     }),
 });
 
-const Settings = () => {
+const DataSettings = () => {
   const initialValues = {
     username: '',
     email: '',
@@ -60,4 +60,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default DataSettings;
