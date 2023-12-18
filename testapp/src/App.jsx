@@ -14,15 +14,7 @@ function App() {
   const [selectedChat, setSelectedChat] = useState(null);
   const { token, setToken } = useToken();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userId, setUserId] = useState("");
 
-  
-  useEffect(() => {
-    if (token) {
-      console.log('Raw token:', token);
-      setUserId(token);
-    }
-  }, [token]);
 
   const handleChatSelect = (chat) => {
     setSelectedChat(chat);
@@ -52,13 +44,13 @@ function App() {
               path="/"
               element={
                 <>
-                  <NavBar openModal={openModal} userId={userId}/>
+                  <NavBar openModal={openModal}/>
                   <ChatPage
                     handleChatSelect={handleChatSelect}
                     selectedChat={selectedChat}
                     userId={userId}
                   />
-                  {isModalOpen && <NavBarModal closeModal={closeModal} userId={userId}/>}
+                  {isModalOpen && <NavBarModal closeModal={closeModal}/>}
                 </>
               }
             />
@@ -66,9 +58,9 @@ function App() {
               path="/settings/profile"
               element={
                 <>
-                  <NavBar openModal={openModal} userId={userId}/>
+                  <NavBar openModal={openModal}/>
                   <ProfileSettings/>
-                  {isModalOpen && <NavBarModal closeModal={closeModal} userId={userId}/>}
+                  {isModalOpen && <NavBarModal closeModal={closeModal}/>}
                 </>
               }
             />

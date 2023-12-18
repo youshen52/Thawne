@@ -1,15 +1,15 @@
 import React, { useState , useEffect} from 'react';
-
+import useToken from './useToken';
 
 import SearchBar from './SearchBar';
 
-function ChatList({ onChatSelect }, userId) {
-  console.log(userId)
-  const [chatList, setChatList] = useState([''])
-  
+function ChatList({ onChatSelect }) {
 
-  async function reflectAllChats(userid) {
-      const response = fetch('http://localhost:5000/getallchat', {
+  const [chatList, setChatList] = useState(['']);
+  const { token } = useToken();
+
+  async function reflectAllChats(userId) {
+    const response = await fetch('http://localhost:5000/getallchat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -21,11 +21,9 @@ function ChatList({ onChatSelect }, userId) {
 
   }
 
-  reflectAllChats(userId);
-  
-  
-
-  
+  useEffect(() =>{
+    reflectAllChats(token);
+  }, [token])
   
   const [activeChat, setActiveChat] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');

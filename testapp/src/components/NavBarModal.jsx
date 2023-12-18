@@ -3,6 +3,8 @@ import { object, string, array, boolean, number } from 'yup';
 import { Formik, Form, Field, FieldArray, useFormik } from 'formik';
 import {Grid, Typography, Button,} from '@mui/material'
 import * as Yup from 'yup';
+import useToken from './useToken';
+
 
 
 
@@ -17,7 +19,9 @@ async function createChat(chatValues) {
     .then(data => data.json())
  }
 
-function NavBarModal({ closeModal, userId }) {
+function NavBarModal({ closeModal }) {
+  const { token } = useToken();
+
   const chatSchema = Yup.object({
     userId: Yup.mixed().required('Required'),
     chatName: Yup.string().required('Required').max(30, 'Maximum length reached'),
@@ -38,7 +42,7 @@ function NavBarModal({ closeModal, userId }) {
         <h1 className="text-2xl font-bold mb-4 text-black">Create Chat</h1>
         <Formik
           initialValues={{
-            userId: userId || '',
+            userId: token || '',
             chatName: '',
             chatDescription: '',
             securityLevel: '',
@@ -65,8 +69,8 @@ function NavBarModal({ closeModal, userId }) {
                   readOnly
                   id="userId"
                   name="userId"
-                  
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
+                  readOnly
                 />
                 {errors.userId && touched.userId ? (
                   <div className="text-red-500">{errors.userId}</div>
