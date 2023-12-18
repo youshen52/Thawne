@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import ChatPage from './components/ChatPage';
 import NotificationSettings from './components/NotificationSettings';
 import ProfileSettings from './components/ProfileSettings';
@@ -14,6 +14,15 @@ function App() {
   const [selectedChat, setSelectedChat] = useState(null);
   const { token, setToken } = useToken();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userId, setUserId] = useState("");
+
+  
+  useEffect(() => {
+    if (token) {
+      console.log('Raw token:', token);
+      setUserId(token);
+    }
+  }, [token]);
 
   const handleChatSelect = (chat) => {
     setSelectedChat(chat);
@@ -43,12 +52,12 @@ function App() {
               path="/"
               element={
                 <>
-                  <NavBar openModal={openModal} />
+                  <NavBar openModal={openModal} userId={userId}/>
                   <ChatPage
                     handleChatSelect={handleChatSelect}
                     selectedChat={selectedChat}
                   />
-                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                  {isModalOpen && <NavBarModal closeModal={closeModal} userId={userId}/>}
                 </>
               }
             />
@@ -56,9 +65,9 @@ function App() {
               path="/settings/profile"
               element={
                 <>
-                  <NavBar openModal={openModal} />
+                  <NavBar openModal={openModal} userId={userId}/>
                   <ProfileSettings/>
-                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                  {isModalOpen && <NavBarModal closeModal={closeModal} userId={userId}/>}
                 </>
               }
             />

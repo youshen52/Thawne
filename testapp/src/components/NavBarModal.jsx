@@ -17,7 +17,7 @@ async function createChat(chatValues) {
     .then(data => data.json())
  }
 
-function NavBarModal({ closeModal }) {
+function NavBarModal({ closeModal, userId }) {
   const chatSchema = Yup.object({
     userId: Yup.mixed().required('Required'),
     chatName: Yup.string().required('Required').max(30, 'Maximum length reached'),
@@ -38,7 +38,7 @@ function NavBarModal({ closeModal }) {
         <h1 className="text-2xl font-bold mb-4 text-black">Create Chat</h1>
         <Formik
           initialValues={{
-            userId: '',
+            userId: userId || '',
             chatName: '',
             chatDescription: '',
             securityLevel: '',
