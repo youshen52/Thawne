@@ -3,7 +3,7 @@ import useToken from './useToken';
 
 import SearchBar from './SearchBar';
 
-function ChatList({ onChatSelect }) {
+function ChatList({ onChatSelect, openPasswordModal }) {
   const [chatList, setChatList] = useState(['']);
   const { token } = useToken();
 
@@ -29,7 +29,7 @@ function ChatList({ onChatSelect }) {
 
   const handleChatClick = async (index, securityLevel) => {
     if (securityLevel === 'Top Secret') {
-      setModalOpen(true);
+      openPasswordModal(index);
     } else {
       const selectedChat = chatList[index];
       onChatSelect(selectedChat);
