@@ -1,6 +1,7 @@
 import React, { useState , useEffect} from 'react';
 
 
+import SearchBar from './SearchBar';
 
 function ChatList({ onChatSelect }) {
 
@@ -24,6 +25,7 @@ function ChatList({ onChatSelect }) {
   }, [])
   
   const [activeChat, setActiveChat] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleChatClick = (index) => {
     const selectedChat = chatList[index];
@@ -53,6 +55,10 @@ function ChatList({ onChatSelect }) {
 
 
 
+  const filteredChats = chats.filter((chat) =>
+    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       
@@ -61,9 +67,9 @@ function ChatList({ onChatSelect }) {
         {chatList.map((chat, index) => (
           <div
             className={`rounded-xl cursor-pointer transition duration-300 ease-in-out ${
-              activeChat === index ? "bg-gray-100" : "hover:bg-gray-50"
+              activeChat === index ? 'bg-gray-100' : 'hover:bg-gray-50'
             }`}
-            key={index} // Use the index as a key
+            key={index}
             onClick={() => handleChatClick(index)}
           >
             <div className="flex items-center px-4 py-3">
