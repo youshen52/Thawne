@@ -60,16 +60,16 @@ function NavBarModal({ closeModal }) {
         >
           {({ errors, touched, values }) => (
             <Form className="space-y-4">
-              <div className="flex flex-col">
+              <div className="flex-col hidden">
                 <label htmlFor="userId" className="text-sm text-black font-semibold">
                   User Id
                 </label>
                 <Field
                   type="text"
+                  readOnly
                   id="userId"
                   name="userId"
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
-                  readOnly
                 />
                 {errors.userId && touched.userId ? (
                   <div className="text-red-500">{errors.userId}</div>

@@ -48,6 +48,7 @@ function App() {
                   <ChatPage
                     handleChatSelect={handleChatSelect}
                     selectedChat={selectedChat}
+              
                   />
                   {isModalOpen && <NavBarModal closeModal={closeModal}/>}
                 </>
