@@ -14,7 +14,7 @@ function ChatList({ onChatSelect }) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userid)
+      body: JSON.stringify(userId)
     })
       .then((response) => response.json());
       setChatList(response)

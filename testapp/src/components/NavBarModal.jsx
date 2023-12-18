@@ -70,7 +70,6 @@ function NavBarModal({ closeModal }) {
                   id="userId"
                   name="userId"
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
-                  readOnly
                 />
                 {errors.userId && touched.userId ? (
                   <div className="text-red-500">{errors.userId}</div>
