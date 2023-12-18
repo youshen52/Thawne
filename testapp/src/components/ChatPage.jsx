@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import ChatList from './ChatList';
 import ChatView from './ChatView';
 
+
 const ChatPage = ({ handleChatSelect, selectedChat }) => {
   return (
     <>
@@ -12,7 +13,7 @@ const ChatPage = ({ handleChatSelect, selectedChat }) => {
           <SearchBar />
           <ChatList onChatSelect={handleChatSelect} />
         </div>
-        <div className="container w-screen overflow-auto">
+        <div className="container w-screen">
           <ChatView selectedChat={selectedChat} />
         </div>
       </div>

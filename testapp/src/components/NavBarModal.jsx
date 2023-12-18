@@ -138,7 +138,7 @@ function NavBarModal({ closeModal }) {
                   {({push, remove,}) => (
                       <React.Fragment>
                             <Grid item>
-                              <Typography variant="p" className='text-gray-800'>New Group</Typography>
+                              <Typography variant="p" className='text-gray-800'>User's ID</Typography>
                             </Grid>
 
                             {values.listOfUsers.map((_, index) =>(
