@@ -56,12 +56,13 @@ function NavBarModal({ closeModal, userId }) {
         >
           {({ errors, touched, values }) => (
             <Form className="space-y-4">
-              <div className="flex flex-col">
+              <div className="flex-col hidden">
                 <label htmlFor="userId" className="text-sm text-black font-semibold">
                   User Id
                 </label>
                 <Field
                   type="text"
+                  readOnly
                   id="userId"
                   name="userId"
                   

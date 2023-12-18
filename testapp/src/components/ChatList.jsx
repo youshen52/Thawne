@@ -3,26 +3,29 @@ import React, { useState , useEffect} from 'react';
 
 import SearchBar from './SearchBar';
 
-function ChatList({ onChatSelect }) {
-
+function ChatList({ onChatSelect }, userId) {
+  console.log(userId)
   const [chatList, setChatList] = useState([''])
+  
 
-  async function reflectAllChats(userId) {
-    const response = await fetch('http://localhost:5000/getallchat', {
+  async function reflectAllChats(userid) {
+      const response = fetch('http://localhost:5000/getallchat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userId)
+      body: JSON.stringify(userid)
     })
       .then((response) => response.json());
       setChatList(response)
+
   }
 
-  const userId = '6cc260f0'
-  useEffect(() =>{
-    reflectAllChats(userId);
-  }, [])
+  reflectAllChats(userId);
+  
+  
+
+  
   
   const [activeChat, setActiveChat] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -55,9 +58,9 @@ function ChatList({ onChatSelect }) {
 
 
 
-  const filteredChats = chats.filter((chat) =>
-    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredChats = chats.filter((chat) =>
+  //   chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <>
