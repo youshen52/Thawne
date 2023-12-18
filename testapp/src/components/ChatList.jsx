@@ -1,11 +1,12 @@
 import React, { useState , useEffect} from 'react';
-
+import useToken from './useToken';
 
 import SearchBar from './SearchBar';
 
 function ChatList({ onChatSelect }) {
 
-  const [chatList, setChatList] = useState([''])
+  const [chatList, setChatList] = useState(['']);
+  const { token } = useToken();
 
   async function reflectAllChats(userId) {
     const response = await fetch('http://localhost:5000/getallchat', {
@@ -19,10 +20,9 @@ function ChatList({ onChatSelect }) {
       setChatList(response)
   }
 
-  const userId = '6cc260f0'
   useEffect(() =>{
-    reflectAllChats(userId);
-  }, [])
+    reflectAllChats(token);
+  }, [token])
   
   const [activeChat, setActiveChat] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -55,9 +55,7 @@ function ChatList({ onChatSelect }) {
 
 
 
-  const filteredChats = chats.filter((chat) =>
-    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
 
   return (
     <>
