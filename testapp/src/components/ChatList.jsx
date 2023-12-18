@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import SearchBar from './SearchBar';
 
 function ChatList({ onChatSelect }) {
   const chats = [
-    { name: 'Lewis', message: 'kukubird' },
+        { name: 'Lewis', message: 'kukubird' },
     { name: 'You Shen', message: 'Bicep curls/shoulder press ftw' },
     { name: 'Snir', message: 'it is football, not soccer' },
     { name: 'Boon Ping', message: 'The glaze is real' },
@@ -18,6 +19,7 @@ function ChatList({ onChatSelect }) {
   ];
 
   const [activeChat, setActiveChat] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleChatClick = (index) => {
     const selectedChat = chats[index];
@@ -25,16 +27,21 @@ function ChatList({ onChatSelect }) {
     setActiveChat((prevActiveChat) => (prevActiveChat === index ? null : index));
   };
 
+  const filteredChats = chats.filter((chat) =>
+    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="overflow-auto h-[47rem]">
-        <h2 className="my-2 mb-4 ml-2 text-lg text-gray-600 font-semibold">Chats ({chats.length})</h2>
-        {chats.map((chat, index) => (
+        <h2 className="my-2 mb-4 ml-2 text-lg text-gray-600 font-semibold">Chats ({filteredChats.length})</h2>
+        <SearchBar onSearch={setSearchTerm} />
+        {filteredChats.map((chat, index) => (
           <div
             className={`rounded-xl cursor-pointer transition duration-300 ease-in-out ${
-              activeChat === index ? "bg-gray-100" : "hover:bg-gray-50"
+              activeChat === index ? 'bg-gray-100' : 'hover:bg-gray-50'
             }`}
-            key={index} // Use the index as a key
+            key={index}
             onClick={() => handleChatClick(index)}
           >
             <div className="flex items-center px-4 py-3">
