@@ -5,6 +5,7 @@ import useToken from './useToken';
 
 const ChatPage = ({ handleChatSelect, selectedChat }) => {
   const [password, setPassword] = useState('');
+  const [chatList, setChatList] = useState([]);
   const [passwordModalIndex, setPasswordModalIndex] = useState(null);
   const [activeChat, setActiveChat] = useState(null);
   const { token } = useToken();
@@ -34,9 +35,9 @@ const ChatPage = ({ handleChatSelect, selectedChat }) => {
 
       if (true) {
         closePasswordModal();
-        const selectedChat = ChatList[passwordModalIndex];
+        const selectedChat = chatList[passwordModalIndex];
         handleChatSelect(selectedChat);
-        setActiveChat(selectedChat);
+        setActiveChat(passwordModalIndex);
       } else {
         console.error('Incorrect password');
       }
@@ -50,10 +51,12 @@ const ChatPage = ({ handleChatSelect, selectedChat }) => {
       <div className="flex bg-white h-full">
         <div className="basis-2/6 overflow-auto">
           <ChatList
-            onChatSelect={handleChatSelect}
+            handleChatSelect={handleChatSelect}
             openPasswordModal={openPasswordModal}
             setActiveChat={setActiveChat}
             activeChat={activeChat}
+            chatList={chatList}
+            setChatList={setChatList}
           />
         </div>
         <div className="container w-screen">

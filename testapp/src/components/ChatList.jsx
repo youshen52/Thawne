@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import useToken from './useToken';
-import SearchBar from './SearchBar';
 
-function ChatList({ onChatSelect, openPasswordModal, setActiveChat, activeChat}) {
-  const [chatList, setChatList] = useState(['']);
+
+function ChatList({ chatList, setChatList, handleChatSelect, openPasswordModal, setActiveChat, activeChat }) {
   const { token } = useToken();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isModalOpen, setModalOpen] = useState(false);
   const [password, setPassword] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const reflectAllChats = async (userId) => {
     const response = await fetch('http://localhost:5000/getallchat', {
@@ -22,14 +20,14 @@ function ChatList({ onChatSelect, openPasswordModal, setActiveChat, activeChat})
 
   useEffect(() => {
     reflectAllChats(token);
-  }, [token]);
+  }, [token, setChatList]);
 
   const handleChatClick = async (index, securityLevel) => {
     if (securityLevel === 'Top Secret') {
       openPasswordModal(index);
     } else {
       const selectedChat = chatList[index];
-      onChatSelect(selectedChat);
+      handleChatSelect(selectedChat);
       setActiveChat(index);
     }
   };
