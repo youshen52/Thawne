@@ -27,13 +27,15 @@ const ChatPage = ({ handleChatSelect, selectedChat }) => {
         },
         body: JSON.stringify({
           uid: token,
-          cid: 'chatid',
-          seclvl: 'Sensitive',
+          cid: chatList[passwordModalIndex].chat_id,
+          seclvl: 'Top Secret',
           pass: password,
         }),
       }).then((response) => response.json());
+      console.log(response);
 
-      if (true) {
+
+      if (response.success) {
         closePasswordModal();
         const selectedChat = chatList[passwordModalIndex];
         handleChatSelect(selectedChat);
