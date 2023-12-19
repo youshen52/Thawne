@@ -10,7 +10,7 @@ import MessageInput from './MessageInput';
 //     { text: 'Hello', sender: 'user' },
 //   ]);
 
-function ChatView({ selectedChat }) {
+function ChatView({ selectedChat, chatList , currentChatInfo}) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function ChatView({ selectedChat }) {
           </div>
           <MessageList messages={messages} />
           <div>
-            <MessageInput onSendMessage={handleSendMessage} />
+            <MessageInput onSendMessage={handleSendMessage} chatList={chatList} currentChatInfo={currentChatInfo}/>
           </div>
           
         </div>
