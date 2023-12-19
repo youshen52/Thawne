@@ -5,6 +5,7 @@ import useToken from './useToken';
 
 const ChatPage = ({ handleChatSelect, selectedChat }) => {
   const [password, setPassword] = useState('');
+  const[currentChatInfo, setcurrentChatInfo] = useState(null)
   const [chatList, setChatList] = useState([]);
   const [passwordModalIndex, setPasswordModalIndex] = useState(null);
   const [activeChat, setActiveChat] = useState(null);
@@ -40,6 +41,12 @@ const ChatPage = ({ handleChatSelect, selectedChat }) => {
         const selectedChat = chatList[passwordModalIndex];
         handleChatSelect(selectedChat);
         setActiveChat(passwordModalIndex);
+        setcurrentChatInfo({
+          chat_id : chatList[passwordModalIndex].chat_id,
+          userId: token,
+          seclvl: "Top Secret",
+          pass: password
+        })
       } else {
         console.error('Incorrect password');
       }
@@ -47,7 +54,7 @@ const ChatPage = ({ handleChatSelect, selectedChat }) => {
       console.error('Error processing password submission:', error);
     }
   };
-
+  
   return (
     <>
       <div className="flex bg-white h-full">
@@ -62,7 +69,7 @@ const ChatPage = ({ handleChatSelect, selectedChat }) => {
           />
         </div>
         <div className="container w-screen">
-          <ChatView selectedChat={selectedChat} />
+          <ChatView selectedChat={selectedChat} chatList={chatList} currentChatInfo={currentChatInfo}/>
         </div>
       </div>
 

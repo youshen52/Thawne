@@ -3,7 +3,10 @@ import EmojiPicker from 'emoji-picker-react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
-function MessageInput({ onSendMessage }) {
+
+function MessageInput({ onSendMessage, currentChatInfo }) {
+
+  
   const [messageText, setMessageText] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
@@ -42,9 +45,10 @@ function MessageInput({ onSendMessage }) {
   return (
     <Formik
       initialValues={{
-        chatId: '',
-        userId: '',
-        securityLevel: '',
+        chatId: currentChatInfo.chatId,
+        userId: currentChatInfo.token,
+        securityLevel: currentChatInfo.seclvl,
+        chatPassword: currentChatInfo.password,
         message: '',
         file: '',
       }}
