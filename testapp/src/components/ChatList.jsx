@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import useToken from './useToken';
-
 import SearchBar from './SearchBar';
 
-function ChatList({ onChatSelect, openPasswordModal }) {
+function ChatList({ onChatSelect, openPasswordModal, setActiveChat, activeChat}) {
   const [chatList, setChatList] = useState(['']);
   const { token } = useToken();
-
-  const [activeChat, setActiveChat] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
   const [password, setPassword] = useState('');
@@ -33,7 +30,7 @@ function ChatList({ onChatSelect, openPasswordModal }) {
     } else {
       const selectedChat = chatList[index];
       onChatSelect(selectedChat);
-      setActiveChat((prevActiveChat) => (prevActiveChat === index ? null : index));
+      setActiveChat(index);
     }
   };
 
@@ -49,34 +46,6 @@ function ChatList({ onChatSelect, openPasswordModal }) {
       return <span className='text-xs bg-yellow-600 text-white font-semibold p-1 rounded-md'>Sensitive</span>;
     } else {
       return <span className='text-xs bg-green-600 text-white font-semibold p-1 rounded-md'>Open</span>;
-    }
-  };
-
-  const handlePasswordSubmit = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/verifychatuser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          uid: token,
-          cid: 'chatid',
-          seclvl: 'Sensitive',
-          pass: password,
-        }),
-      }).then((response) => response.json());
-
-      if (response.success) {
-        setModalOpen(false);
-        const selectedChat = chatList[activeChat];
-        onChatSelect(selectedChat);
-        setActiveChat(null);
-      } else {
-        console.error('Incorrect password');
-      }
-    } catch (error) {
-      console.error('Error processing password submission:', error);
     }
   };
 
@@ -112,29 +81,27 @@ function ChatList({ onChatSelect, openPasswordModal }) {
       </div>
 
       {isModalOpen && (
-  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-    <div className="bg-white p-6 rounded-md">
-      <h2 className="text-lg font-semibold mb-4 text-gray-700">Enter Password</h2>
-      <label className='text-gray-700 mb-2'>Password:</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="border border-gray-300 p-2 rounded-md mb-4"
-      />
-      <div className="flex justify-between">
-        <button onClick={handlePasswordSubmit} className="bg-blue-500 text-white px-4 py-2 rounded-md">
-          Submit
-        </button>
-        <button onClick={() => setModalOpen(false)} className="bg-red-500 text-white px-4 py-2 rounded-md">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
-
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-6 rounded-md">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700">Enter Password</h2>
+            <label className='text-gray-700 mb-2'>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="border border-gray-300 p-2 rounded-md mb-4"
+            />
+            <div className="flex justify-between">
+              <button onClick={handlePasswordSubmit} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                Submit
+              </button>
+              <button onClick={() => setModalOpen(false)} className="bg-red-500 text-white px-4 py-2 rounded-md">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

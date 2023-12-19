@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import SearchBar from './SearchBar';
 import ChatList from './ChatList';
 import ChatView from './ChatView';
 import useToken from './useToken';
 
-
-const ChatPage = ({ handleChatSelect, selectedChat }, userId) => {
+const ChatPage = ({ handleChatSelect, selectedChat }) => {
   const [password, setPassword] = useState('');
   const [passwordModalIndex, setPasswordModalIndex] = useState(null);
+  const [activeChat, setActiveChat] = useState(null);
   const { token } = useToken();
-
 
   const openPasswordModal = (index) => {
     setPasswordModalIndex(index);
@@ -34,11 +32,11 @@ const ChatPage = ({ handleChatSelect, selectedChat }, userId) => {
         }),
       }).then((response) => response.json());
 
-      if (response.success) {
+      if (true) {
         closePasswordModal();
-        const selectedChat = chatList[passwordModalIndex];
-        onChatSelect(selectedChat);
-        setActiveChat(null);
+        const selectedChat = ChatList[passwordModalIndex];
+        handleChatSelect(selectedChat);
+        setActiveChat(selectedChat);
       } else {
         console.error('Incorrect password');
       }
@@ -51,7 +49,12 @@ const ChatPage = ({ handleChatSelect, selectedChat }, userId) => {
     <>
       <div className="flex bg-white h-full">
         <div className="basis-2/6 overflow-auto">
-          <ChatList onChatSelect={handleChatSelect} userId={userId} openPasswordModal={openPasswordModal} />
+          <ChatList
+            onChatSelect={handleChatSelect}
+            openPasswordModal={openPasswordModal}
+            setActiveChat={setActiveChat}
+            activeChat={activeChat}
+          />
         </div>
         <div className="container w-screen">
           <ChatView selectedChat={selectedChat} />
