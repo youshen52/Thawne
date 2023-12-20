@@ -44,4 +44,26 @@ async function createChat(chatValues) {
   }
 }
 
-export { reflectAllChats, createChat };
+async function submitMessage(content) {
+  try {
+    const response = await fetch(API_CONFIG.endpoints.submitMessage, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(content),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error sending message: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error sending message:', error.message);
+    throw error;
+  }
+}
+
+export { reflectAllChats, createChat, submitMessage };

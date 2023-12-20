@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import MessageList from './ChatView/MessageList';
-import MessageInput from './ChatView/MessageList';
+import MessageInput from './ChatView/MessageInput';
 
 
 

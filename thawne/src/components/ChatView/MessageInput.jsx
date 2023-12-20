@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
+import { submitMessage } from '../../api/chatApi';
 
 
-function MessageInput({ onSendMessage, currentChatInfo }) {
+function MessageInput({ onSendMessage, currentChatInfo}) {
 
   
   const [messageText, setMessageText] = useState('');
@@ -54,11 +55,13 @@ function MessageInput({ onSendMessage, currentChatInfo }) {
       }}
       validationSchema={messageSchema}
       onSubmit={(values) => {
+        console.log(values);
         handleSendMessage(values);
         handleSubmit(values);
+        submitMessage(values);
       }}
     >
-      {(formik, errors, touched) => (
+      {({formik, errors, touched}) => (
         <Form onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}>
           <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
             <button
