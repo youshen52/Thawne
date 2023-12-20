@@ -1,71 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState,  useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { submitMessage } from '../../api/chatApi';
 
-
-function MessageInput({ onSendMessage, currentChatInfo}) {
-
-  
-  const [messageText, setMessageText] = useState('');
+function MessageInput({ onSendMessage, currentChatInfo }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const validFileExtensions = ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp'];
+
+  const initialValues = {
+    message: '',
+    file: '',
+  };
 
   const messageSchema = Yup.object({
-    chatId: Yup.mixed().required('Required'),
-    userId: Yup.string().required('Required'),
-    securityLevel: Yup.string().required('Required'),
-    chatPassword: Yup.string().required('Required'),
-    message: Yup.string().required(),
+    message: Yup.string().required('Message is required'),
     file: Yup.mixed(),
   });
 
-  const handleSubmit = (values) => {
-    console.log(values);
-  };
 
-  const handleInputChange = (e) => {
-    setMessageText(e.target.value);
-  };
 
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (messageText.trim() !== '') {
-      onSendMessage(messageText);
-      setMessageText('');
+  const handleSendMessage = (values) => {
+    if (values.message.trim() !== '') {
+      onSendMessage(values.message);
+      const editedvalues = {
+        chatId: currentChatInfo.chat_id,
+        userId: currentChatInfo.userId,
+        securityLevel: currentChatInfo.seclvl,
+        chatPassword: currentChatInfo.pass,
+        ...values,
+      };
+      console.log(editedvalues);
+      submitMessage(editedvalues);
     }
   };
 
+
   const handleEmojiClick = (emojiData) => {
-    setMessageText((prevMessage) => prevMessage + emojiData.emoji);
+    setFieldValue('message', messageText + emojiData.emoji);
     setShowEmojiPicker(false);
   };
 
   return (
     <Formik
-      initialValues={{
-        chatId: currentChatInfo.chatId,
-        userId: currentChatInfo.token,
-        securityLevel: currentChatInfo.seclvl,
-        chatPassword: currentChatInfo.password,
-        message: '',
-        file: '',
-      }}
+      initialValues={initialValues}
       validationSchema={messageSchema}
-      onSubmit={(values) => {
-        console.log(values);
-        handleSendMessage(values);
-        handleSubmit(values);
-        submitMessage(values);
-      }}
+      onSubmit={handleSendMessage}
     >
-      {({formik, errors, touched}) => (
-        <Form onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}>
+      {({ setFieldValue }) => (
+        <Form>
           <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
             <button
-              className="bg-gray-800 text-2xl px-2 py-1 mr-1 text-white"
+              type="button"
+              className="bg-transparent text-2xl px-2 py-1 mr-1 text-white"
               onClick={() => setShowEmojiPicker((prev) => !prev)}
             >
               <ion-icon name="happy-outline"></ion-icon>
@@ -73,30 +60,23 @@ function MessageInput({ onSendMessage, currentChatInfo}) {
             {showEmojiPicker && (
               <EmojiPicker onEmojiClick={handleEmojiClick} autoFocusSearch />
             )}
-            <Field
-              type="file"
-              id="file"
-              name="file"
-              className="hidden"
-            />
+            <Field type="file" id="file" name="file" className="hidden" />
             <label
               htmlFor="file"
-              className="bg-gray-800 text-2xl px-2 py-1 rounded-md cursor-pointer text-white"
+              className="bg-transparent text-2xl px-2 py-1 rounded-md cursor-pointer text-white"
             >
               <ion-icon name="attach-outline"></ion-icon>
             </label>
             <Field
               type="text"
               placeholder="Message"
-              value={messageText}
-              onChange={handleInputChange}
               className="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700"
               name="message"
+              onChange={(e) => {
+                setFieldValue('message', e.target.value);
+              }}
             />
-            <button
-              type="submit"
-              className="text-gray-800 bg-transparent text-2xl px-2 py-1"
-            >
+            <button type="submit" className="text-white bg-transparent text-2xl px-2 py-1">
               <ion-icon name="send"></ion-icon>
             </button>
           </div>
@@ -106,4 +86,4 @@ function MessageInput({ onSendMessage, currentChatInfo}) {
   );
 }
 
-export default MessageInput;
+export default MessageInput;

@@ -10,7 +10,7 @@ import VerifyChatModal from '../components/modals/VerifyChatModal';
 
 function ChatPage({ handleChatSelect, selectedChat }) {
   const [password, setPassword] = useState('');
-  const[currentChatInfo, setcurrentChatInfo] = useState(null)
+  const[currentChatInfo, setcurrentChatInfo] = useState({})
   const [chatList, setChatList] = useState([]);
   const [verifyChatModalIndex, setVerifyChatModalIndex] = useState(null);
   const [activeChat, setActiveChat] = useState(null);
@@ -41,7 +41,7 @@ function ChatPage({ handleChatSelect, selectedChat }) {
       console.log(response);
 
 
-      if (response.success) {
+      if (response) {
         closeVerifyChatModal();
         const selectedChat = chatList[verifyChatModalIndex];
         handleChatSelect(selectedChat);
@@ -51,7 +51,8 @@ function ChatPage({ handleChatSelect, selectedChat }) {
           userId: token,
           seclvl: "Top Secret",
           pass: password
-        })
+        });
+
       } else {
         console.error('Incorrect password');
       }
@@ -59,10 +60,10 @@ function ChatPage({ handleChatSelect, selectedChat }) {
       console.error('Error processing password submission:', error);
     }
   };
-  
+  console.log(currentChatInfo);
   return (
     <>
-      <div className="flex bg-white h-full">
+      <div className="flex bg-zinc-800 h-full border-black">
         <div className="basis-2/6 overflow-auto">
           <ChatList
             handleChatSelect={handleChatSelect}

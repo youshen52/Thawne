@@ -35,7 +35,7 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
       return (
         <div>
           <span className='text-xs bg-red-600 text-white font-semibold p-1 rounded-md'>Top Secret</span>
-          <span className='text-gray-800'><ion-icon name="lock-closed"></ion-icon></span>
+          <span className='text-white ml-1'><ion-icon name="lock-closed"></ion-icon></span>
         </div>
       );
     } else if (level === 'Sensitive') {
@@ -47,12 +47,12 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
 
   return (
     <>
-      <div className="">
-        <h2 className="my-2 mb-4 ml-2 text-lg text-gray-600 font-semibold">Chats</h2>
+      <div>
+        <h2 className="my-4 ml-4 text-lg text-white font-semibold">Chats</h2>
         {chatList.map((chat, index) => (
           <div
             className={`rounded-xl cursor-pointer transition duration-300 ease-in-out ${
-              activeChat === index ? 'bg-gray-100' : 'hover:bg-gray-50'
+              activeChat === index ? 'bg-zinc-700' : 'hover:bg-zinc-700'
             }`}
             key={index}
             onClick={() => handleChatClick(index, chat.security_level)}
@@ -66,7 +66,7 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
 
               <div className="flex-1">
                 <div className="flex justify-between items-center">
-                  <span className="font-semibold text-gray-800">{chat.chat_name}</span>
+                  <span className="font-semibold text-white">{chat.chat_name}</span>
                   {checkSecurity(chat.security_level)}
                 </div>
                 <span className="text-sm text-gray-600">{}</span>

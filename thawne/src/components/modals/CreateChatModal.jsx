@@ -75,7 +75,7 @@ function createChatModal({ closeModal }) {
                   type="text"
                   id="chatName"
                   name="chatName"
-                  
+                  placeholder="Chat name"
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
                 />
                 {errors.chatName && touched.chatName ? (
@@ -91,7 +91,7 @@ function createChatModal({ closeModal }) {
                   type="text"
                   id="chatDescription"
                   name="chatDescription"
-                  
+                  placeholder="Discussion for upcoming project."
                   className="border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
                 />
                 {errors.chatDescription && touched.chatDescription ? (
@@ -141,7 +141,9 @@ function createChatModal({ closeModal }) {
                               <Grid container item key={index}>
                                 <Grid item xs={12} sm="auto">
                                     <Field  name={`listOfUsers[${index}]`}
-                                    type="text"/>
+                                    type="text" 
+                                    placeholder="User'ID"
+                                    className="border rounded py-1 focus:outline-none focus:ring focus:border-blue-300"/>
                                 </Grid>
 
                                 <Grid item xs={12} sm="auto">

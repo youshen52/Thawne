@@ -22,8 +22,9 @@ function Login({ setToken }) {
   };
 
   return (
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
+    <div className="login-wrapper bg-white grid h-screen place-items-center">
+      
+      <span>Log In</span>
       <Formik
         initialValues={initialValues}
         validationSchema={loginSchema}
