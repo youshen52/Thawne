@@ -4,10 +4,8 @@ import { Formik, Form, Field, FieldArray, useFormik } from 'formik';
 import {Grid, Typography, Button,} from '@mui/material'
 import * as Yup from 'yup';
 
-import useToken from '../hooks/useToken';
-import API_CONFIG from '../config/api';
-
-
+import useToken from '../../hooks/useToken';
+import API_CONFIG from '../../config/api';
 
 
 

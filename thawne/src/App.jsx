@@ -7,9 +7,9 @@ import ChatPage from './pages/ChatPage';
 import NotificationSettings from './pages/NotificationSettings';
 import ProfileSettings from './pages/ProfileSettings';
 import DataSettings from './pages/DataSettings';
-import Login from './pages/Login';
+import LoginPage from './pages/LoginPage';
 import NavBar from './components/NavBar';
-import CreateChatModal from './components/CreateChatModal';
+import CreateChatModal from './components/modals/CreateChatModal';
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
   
 
   if(!token) {
-    return <Login setToken={setToken} />
+    return <LoginPage setToken={setToken} />
   }
 
 

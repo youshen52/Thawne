@@ -5,7 +5,7 @@ import API_CONFIG from '../config/api';
 
 import ChatList from '../components/ChatList';
 import ChatView from '../components/ChatView';
-import VerifyChatModal from '../components/VerifyChatModal';
+import VerifyChatModal from '../components/modals/VerifyChatModal';
 
 
 function ChatPage({ handleChatSelect, selectedChat }) {
