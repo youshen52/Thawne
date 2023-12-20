@@ -42,7 +42,7 @@ function ChatView({ selectedChat, chatList , currentChatInfo}) {
       {selectedChat ? (
         <div className="w-full h-3/4">
           <div className="relative flex items-center p-3 border-b border-black bg-zinc-800">
-            <img className="object-cover w-10 h-10 rounded-full" src="./public/images/default_pfp.png" alt="username" />
+            <img className="object-cover w-10 h-10 rounded-full" src="/images/default_pfp.png" alt="username" />
             <span className="block ml-2 font-bold text-white">{selectedChat.chat_name}</span>
             <span className="absolute w-3 h-3 bg-green-600 rounded-full left-10 top-3"></span>
             {checkSecurity(selectedChat.security_level)}

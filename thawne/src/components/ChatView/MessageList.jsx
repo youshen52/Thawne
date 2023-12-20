@@ -2,8 +2,8 @@ import React from 'react';
 
 function MessageList({ messages }) {
   return (
-    <div className="relative w-full p-6 overflow-y-auto h-[40rem]" style={{ 
-      backgroundImage: `url("../public/images/chatWallpaper.jpg")` 
+    <div className="relative w-full p-6 overflow-y-auto h-[40rem] " style={{ 
+      backgroundImage: `url("/images/chatWallpaper.jpg")`
     }}>
       <ul className="space-y-2">
         {messages.map((message, index) => (
