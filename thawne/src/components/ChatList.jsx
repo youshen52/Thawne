@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import useToken from '../hooks/useToken';
-import API_CONFIG from '../config/api';
+import { reflectAllChats } from '../api/chatApi';
+
 
 
 function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal, setActiveChat, activeChat }) {
@@ -9,19 +10,14 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
   const [password, setPassword] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const reflectAllChats = async (userId) => {
-    const response = await fetch(API_CONFIG.endpoints.getAllChat, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userId),
-    }).then((response) => response.json());
-    setChatList(response);
-  };
 
   useEffect(() => {
-    reflectAllChats(token);
+    const fetchData = async () => {
+        const data = await reflectAllChats(token);
+        setChatList(data);
+    };
+
+    fetchData();
   }, [token, setChatList]);
 
   const handleChatClick = async (index, securityLevel) => {

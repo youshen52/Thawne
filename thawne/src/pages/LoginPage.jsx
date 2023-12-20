@@ -2,18 +2,8 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import API_CONFIG from '../config/api';
+import { loginUser } from "../api/authApi";
 
-async function loginUser(credentials) {
-  return fetch(API_CONFIG.endpoints.login, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json());
-}
 
 function Login({ setToken }) {
   const initialValues = {

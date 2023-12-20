@@ -5,20 +5,11 @@ import {Grid, Typography, Button,} from '@mui/material'
 import * as Yup from 'yup';
 
 import useToken from '../../hooks/useToken';
-import API_CONFIG from '../../config/api';
+import { createChat } from '../../api/chatApi';
 
 
 
-async function createChat(chatValues) {
-  return fetch(API_CONFIG.endpoints.createChat, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(chatValues)
-  })
-    .then(data => data.json())
- }
+
 
 function createChatModal({ closeModal }) {
   const { token } = useToken();
@@ -149,7 +140,7 @@ function createChatModal({ closeModal }) {
                             {values.listOfUsers.map((_, index) =>(
                               <Grid container item key={index}>
                                 <Grid item xs={12} sm="auto">
-                                    <Field fullWidth name={`listOfUsers[${index}]`}
+                                    <Field  name={`listOfUsers[${index}]`}
                                     type="text"/>
                                 </Grid>
 
