@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import useToken from '../hooks/useToken';
+import API_CONFIG from '../config/api';
 
 
 function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal, setActiveChat, activeChat }) {
@@ -9,7 +10,7 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
   const [isModalOpen, setModalOpen] = useState(false);
 
   const reflectAllChats = async (userId) => {
-    const response = await fetch('http://localhost:5000/getallchat', {
+    const response = await fetch(API_CONFIG.endpoints.getAllChat, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

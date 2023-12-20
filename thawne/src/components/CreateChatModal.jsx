@@ -5,12 +5,14 @@ import {Grid, Typography, Button,} from '@mui/material'
 import * as Yup from 'yup';
 
 import useToken from '../hooks/useToken';
+import API_CONFIG from '../config/api';
+
 
 
 
 
 async function createChat(chatValues) {
-  return fetch('http://localhost:5000/createchat', {
+  return fetch(API_CONFIG.endpoints.createChat, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

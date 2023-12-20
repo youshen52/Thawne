@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import useToken from '../hooks/useToken';
+import API_CONFIG from '../config/api';
 
 import ChatList from '../components/ChatList';
 import ChatView from '../components/ChatView';
@@ -25,7 +26,7 @@ function ChatPage({ handleChatSelect, selectedChat }) {
 
   const handlePasswordSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:5000/verifychatuser', {
+      const response = await fetch(API_CONFIG.endpoints.verifyChatUser, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
