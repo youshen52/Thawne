@@ -12,7 +12,7 @@ function ChatPage({ handleChatSelect, selectedChat }) {
   const [password, setPassword] = useState('');
   const[currentChatInfo, setcurrentChatInfo] = useState(null)
   const [chatList, setChatList] = useState([]);
-  const [VerifyChatModalIndex, setVerifyChatModalIndex] = useState(null);
+  const [verifyChatModalIndex, setVerifyChatModalIndex] = useState(null);
   const [activeChat, setActiveChat] = useState(null);
   const { token } = useToken();
 
@@ -24,7 +24,7 @@ function ChatPage({ handleChatSelect, selectedChat }) {
     setVerifyChatModalIndex(null);
   };
 
-  const handlePasswordSubmit = async () => {
+  const handlePasswordSubmit = async (password) => {
     try {
       const response = await fetch(API_CONFIG.endpoints.verifyChatUser, {
         method: 'POST',
@@ -33,7 +33,7 @@ function ChatPage({ handleChatSelect, selectedChat }) {
         },
         body: JSON.stringify({
           uid: token,
-          cid: chatList[VerifyChatModalIndex].chat_id,
+          cid: chatList[verifyChatModalIndex].chat_id,
           seclvl: 'Top Secret',
           pass: password,
         }),
@@ -43,11 +43,11 @@ function ChatPage({ handleChatSelect, selectedChat }) {
 
       if (response.success) {
         closeVerifyChatModal();
-        const selectedChat = chatList[VerifyChatModalIndex];
+        const selectedChat = chatList[verifyChatModalIndex];
         handleChatSelect(selectedChat);
-        setActiveChat(VerifyChatModalIndex);
+        setActiveChat(verifyChatModalIndex);
         setcurrentChatInfo({
-          chat_id : chatList[VerifyChatModalIndex].chat_id,
+          chat_id : chatList[verifyChatModalIndex].chat_id,
           userId: token,
           seclvl: "Top Secret",
           pass: password
@@ -78,10 +78,8 @@ function ChatPage({ handleChatSelect, selectedChat }) {
         </div>
       </div>
 
-      {VerifyChatModalIndex !== null && (
+      {verifyChatModalIndex !== null && (
         <VerifyChatModal
-          password={password}
-          setPassword={setPassword}
           handlePasswordSubmit={handlePasswordSubmit}
           closeVerifyChatModal={closeVerifyChatModal}
         />
