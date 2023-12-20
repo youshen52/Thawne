@@ -8,6 +8,9 @@ function createWindow() {
     width: 1024,
     height: 650,
     frame: true,
+    icon: path.join(__dirname, '..', 'public', 'images', 'icon.ico'),
+
+
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,

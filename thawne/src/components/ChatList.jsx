@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import useToken from '../hooks/useToken';
 
 
-function ChatList({ chatList, setChatList, handleChatSelect, openPasswordModal, setActiveChat, activeChat }) {
+function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal, setActiveChat, activeChat }) {
   const { token } = useToken();
   const [password, setPassword] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
@@ -25,7 +25,7 @@ function ChatList({ chatList, setChatList, handleChatSelect, openPasswordModal, 
 
   const handleChatClick = async (index, securityLevel) => {
     if (securityLevel === 'Top Secret') {
-      openPasswordModal(index);
+      openVerifyChatModal(index);
     } else {
       const selectedChat = chatList[index];
       handleChatSelect(selectedChat);

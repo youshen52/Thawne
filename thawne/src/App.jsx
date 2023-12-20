@@ -9,7 +9,7 @@ import ProfileSettings from './pages/ProfileSettings';
 import DataSettings from './pages/DataSettings';
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
-import NavBarModal from './components/NavBarModal';
+import CreateChatModal from './components/CreateChatModal';
 
 
 function App() {
@@ -52,7 +52,7 @@ function App() {
                     selectedChat={selectedChat}
               
                   />
-                  {isModalOpen && <NavBarModal closeModal={closeModal}/>}
+                  {isModalOpen && <CreateChatModal closeModal={closeModal}/>}
                 </>
               }
             />
@@ -62,7 +62,7 @@ function App() {
                 <>
                   <NavBar openModal={openModal}/>
                   <ProfileSettings/>
-                  {isModalOpen && <NavBarModal closeModal={closeModal}/>}
+                  {isModalOpen && <CreateChatModal closeModal={closeModal}/>}
                 </>
               }
             />
@@ -72,7 +72,7 @@ function App() {
                 <>
                   <NavBar openModal={openModal} />
                   <NotificationSettings/>
-                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                  {isModalOpen && <CreateChatModal closeModal={closeModal} />}
                 </>
               }
             />
@@ -82,7 +82,7 @@ function App() {
                 <>
                   <NavBar openModal={openModal} />
                   <DataSettings/>
-                  {isModalOpen && <NavBarModal closeModal={closeModal} />}
+                  {isModalOpen && <CreateChatModal closeModal={closeModal} />}
                 </>
               }
             />

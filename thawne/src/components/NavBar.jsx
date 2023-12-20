@@ -13,7 +13,7 @@ function NavBar({ openModal }) {
 
     return(
         <>
-            <div className="flex bg-gray-800 justify-between px-4 py-2">
+            <div className="flex bg-gray-800 justify-between px-6 py-3">
                 <p className="text-xl my-auto ml-4 font-bold text-white">Thawne <ion-icon name="flash"></ion-icon></p>
                 <div className='flex items-center space-x-4'>
                     <button className="bg-transparent text-white" onClick={openModal}>

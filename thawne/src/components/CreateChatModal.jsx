@@ -20,7 +20,7 @@ async function createChat(chatValues) {
     .then(data => data.json())
  }
 
-function NavBarModal({ closeModal }) {
+function createChatModal({ closeModal }) {
   const { token } = useToken();
 
   const chatSchema = Yup.object({
@@ -221,4 +221,4 @@ function NavBarModal({ closeModal }) {
   );
 }
 
-export default NavBarModal;
+export default createChatModal;
