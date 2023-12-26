@@ -12,11 +12,12 @@ import API_CONFIG from '../config/api';
 function ChatView({ selectedChat, chatList , currentChatInfo}) {
   const [messages, setMessages] = useState([]);
   const { token } = useToken();
+  
+  
+
   useEffect(() => {
     if (selectedChat) {
-      // const newMessages = [
-      //   { text: 'Hi', sender: 'other' },
-      // ];
+
       const newMessages = {
         chatId: currentChatInfo.chat_id,
         userId: token,
@@ -62,10 +63,6 @@ function ChatView({ selectedChat, chatList , currentChatInfo}) {
 
 
 
-  const handleSendMessage = (messageText) => {
-    const newMessage = { text: messageText, sender: 'user' };
-    setMessages([...messages, newMessage]);
-  };
 
   const checkSecurity = (level) => {
     if(level == "Top Secret"){
@@ -92,7 +89,7 @@ function ChatView({ selectedChat, chatList , currentChatInfo}) {
           </div>
           <MessageList messages={messages} />
           <div className='bg-zinc-800'>
-            <MessageInput onSendMessage={handleSendMessage} chatList={chatList} currentChatInfo={currentChatInfo}/>
+            <MessageInput chatList={chatList} currentChatInfo={currentChatInfo}/>
           </div>
           
         </div>
