@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import MessageList from './ChatView/MessageList';
 import MessageInput from './ChatView/MessageInput';
-import { getMessageList } from '../api/chatApi';
+// import { getMessageList } from '../api/chatApi';
 import useToken from '../hooks/useToken';
+import API_CONFIG from '../config/api';
 
 
 
@@ -22,8 +23,37 @@ function ChatView({ selectedChat, chatList , currentChatInfo}) {
         securityLevel: currentChatInfo.seclvl,
         pass: currentChatInfo.pass,
       };
-      console.log(newMessages);
-      setMessages(getMessageList(newMessages));
+      const getMessageList = async (currentChat) => {
+        try {
+          const response = await fetch(API_CONFIG.endpoints.getTopMessages, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(currentChat)
+          }).then((response) => response.json());
+          console.log(response);
+          console.log(response)
+          if (response.success){
+            console.log(response.message)
+            setMessages(response.message)
+          }
+          else if (!response.success){
+            console.log(response)
+            setMessages([])
+          }
+          else if (!response.ok) {
+            throw new Error(`Failed to fetch message list: ${response.status}`);
+          }
+          else{
+            console.log(response)
+          }
+        } catch (error) {
+          console.error('Error fetching message list:', error.message);
+          throw error;
+    }}  
+
+    getMessageList(newMessages);
       
     } else {
       setMessages([]);

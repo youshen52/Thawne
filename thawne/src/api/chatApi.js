@@ -79,21 +79,22 @@ async function getMessageList(currentChat) {
       console.log(response)
       if (response.success){
         console.log(response.message)
-        return(response.message)
+        return response.message
       }
       else{
         console.log(response)
       }
 
-    // if (!response.ok) {
-    //   throw new Error(`Failed to fetch message list: ${response.status}`);
-    // }
-    // else{
-    //   console.log(response)
-    // }
+    if (!response.ok) {
+      throw new Error(`Failed to fetch message list: ${response.status}`);
+    }
+    else{
+      console.log(response)
+      return response.message
+    }
 
-    // const data = await response.json();
-    // return data;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error fetching message list:', error.message);
     throw error;
