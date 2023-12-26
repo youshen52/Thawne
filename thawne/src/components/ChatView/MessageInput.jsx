@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { submitMessage } from '../../api/chatApi';
 
-function MessageInput({ onSendMessage, currentChatInfo }) {
+function MessageInput({currentChatInfo}) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
 
@@ -20,9 +20,8 @@ function MessageInput({ onSendMessage, currentChatInfo }) {
 
 
 
-  const handleSendMessage = (values) => {
+  const handleSendMessage = (values, { resetForm }) => {
     if (values.message.trim() !== '') {
-      onSendMessage(values.message);
       const editedvalues = {
         chatId: currentChatInfo.chat_id,
         userId: currentChatInfo.userId,
@@ -32,6 +31,7 @@ function MessageInput({ onSendMessage, currentChatInfo }) {
       };
       console.log(editedvalues);
       submitMessage(editedvalues);
+      resetForm();
     }
   };
 
