@@ -34,14 +34,14 @@ function ChatPage({ handleChatSelect, selectedChat }) {
         body: JSON.stringify({
           uid: token,
           cid: chatList[verifyChatModalIndex].chat_id,
-          seclvl: 'Top Secret',
+          seclvl: chatList[verifyChatModalIndex].security_level,
           pass: password,
         }),
       }).then((response) => response.json());
       console.log(response);
 
 
-      if (response) {
+      if (response.success) {
         closeVerifyChatModal();
         const selectedChat = chatList[verifyChatModalIndex];
         handleChatSelect(selectedChat);
@@ -49,18 +49,21 @@ function ChatPage({ handleChatSelect, selectedChat }) {
         setcurrentChatInfo({
           chat_id : chatList[verifyChatModalIndex].chat_id,
           userId: token,
-          seclvl: "Top Secret",
+          seclvl: chatList[verifyChatModalIndex].security_level,
           pass: password
         });
 
-      } else {
+      } else{
         console.error('Incorrect password');
+
       }
     } catch (error) {
       console.error('Error processing password submission:', error);
     }
   };
-  console.log(currentChatInfo);
+
+
+  
   return (
     <>
       <div className="flex bg-zinc-800 h-full border-black">
@@ -72,6 +75,8 @@ function ChatPage({ handleChatSelect, selectedChat }) {
             activeChat={activeChat}
             chatList={chatList}
             setChatList={setChatList}
+            setcurrentChatInfo={setcurrentChatInfo}
+            
           />
         </div>
         <div className="container w-screen">

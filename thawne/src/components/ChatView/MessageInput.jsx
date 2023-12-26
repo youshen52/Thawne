@@ -49,7 +49,7 @@ function MessageInput({ onSendMessage, currentChatInfo }) {
     >
       {({ setFieldValue }) => (
         <Form>
-          <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
+          <div className="flex items-center justify-between w-full p-3 border-t border-black">
             <button
               type="button"
               className="bg-transparent text-2xl px-2 py-1 mr-1 text-white"

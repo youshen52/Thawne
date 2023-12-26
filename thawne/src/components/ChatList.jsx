@@ -5,7 +5,7 @@ import { reflectAllChats } from '../api/chatApi';
 
 
 
-function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal, setActiveChat, activeChat }) {
+function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal, setActiveChat, activeChat, setcurrentChatInfo }) {
   const { token } = useToken();
   const [password, setPassword] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
@@ -21,14 +21,21 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
   }, [token, setChatList]);
 
   const handleChatClick = async (index, securityLevel) => {
-    if (securityLevel === 'Top Secret') {
+    if (securityLevel === 'Top Secret' || securityLevel === 'Sensitive') {
       openVerifyChatModal(index);
     } else {
       const selectedChat = chatList[index];
       handleChatSelect(selectedChat);
       setActiveChat(index);
+      setcurrentChatInfo({
+        chat_id : selectedChat.chat_id,
+        userId: token,
+        seclvl: securityLevel,
+        pass: false
+      });
     }
   };
+  
 
   const checkSecurity = (level) => {
     if (level === 'Top Secret') {
@@ -55,7 +62,7 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
               activeChat === index ? 'bg-zinc-700' : 'hover:bg-zinc-700'
             }`}
             key={index}
-            onClick={() => handleChatClick(index, chat.security_level)}
+            onClick={() => {handleChatClick(index, chat.security_level);}}
           >
             <div className="flex items-center px-4 py-3">
               <img

@@ -2,22 +2,34 @@ import React, { useState, useEffect } from 'react';
 
 import MessageList from './ChatView/MessageList';
 import MessageInput from './ChatView/MessageInput';
+import { getMessageList } from '../api/chatApi';
+import useToken from '../hooks/useToken';
+
 
 
 
 function ChatView({ selectedChat, chatList , currentChatInfo}) {
   const [messages, setMessages] = useState([]);
-
+  const { token } = useToken();
   useEffect(() => {
     if (selectedChat) {
-      const newMessages = [
-        { text: 'Hi', sender: 'other' },
-      ];
-      setMessages(newMessages);
+      // const newMessages = [
+      //   { text: 'Hi', sender: 'other' },
+      // ];
+      const newMessages = {
+        chatId: currentChatInfo.chat_id,
+        userId: token,
+        securityLevel: currentChatInfo.seclvl,
+        pass: currentChatInfo.pass,
+      };
+      console.log(newMessages);
+      setMessages(getMessageList(newMessages));
+      
     } else {
       setMessages([]);
     }
   }, [selectedChat]);
+
 
 
   const handleSendMessage = (messageText) => {
@@ -36,6 +48,7 @@ function ChatView({ selectedChat, chatList , currentChatInfo}) {
       return <span className='ml-2 text-xs bg-green-600 text-white font-semibold p-1 rounded-md'>Open</span>
     }
   }
+  console.log(messages)
 
   return (
     <div className="hidden lg:col-span-2 lg:block">
