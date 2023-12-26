@@ -40,7 +40,7 @@ function NotificationSettings() {
       </ul>
     </div>
 
-    <div class="col-span-8 overflow-hidden rounded-xl bg-gray-50 px-8 shadow">
+    <div class="col-span-8 overflow-hidden rounded-xl px-8 shadow">
       <div class="border-b pt-4 pb-8">
         <h1 class="text-gray-700 py-2 text-2xl font-semibold">Notification settings</h1>
       </div>
