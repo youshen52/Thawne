@@ -28,7 +28,7 @@ function MessageList({ messages }) {
     }}>
       {checkMessageList(messages)}
       <ul className="space-y-2">
-        {messages.map((message, index) => (
+        {messages.reverse().map((message, index) => (
           <li key={index} className={`flex justify-${userMessage(Object.keys(message.sent_from)[0]) ? 'end' : 'start'}`}>
             <div className={`relative max-w-xl px-4 py-2 text-white bg-gray-700  ${userMessage(Object.keys(message.sent_from)[0]) ? 'bg-gray-100 rounded' : 'rounded shadow'}`}>
               {userMessage(Object.keys(message.sent_from)[0]) ? <span className="block">{message.content}</span> : <span className="block">{message.content}</span>}
