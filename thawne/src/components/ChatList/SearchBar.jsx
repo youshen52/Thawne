@@ -15,18 +15,19 @@ function SearchBar({ onSearch }) {
     setSearchTerm(e.target.value);
   };
 
+  
   return (
-    <div className="border-r border-gray-300 lg:col-span-1">
-      <div className="mx-3 my-3">
-        <div className="relative text-gray-600">
+    <div className="lg:col-span-1">
+      <div className="mx-2 my-2">
+        <div className="relative text-white">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <ion-icon name="search-outline"></ion-icon>
           </span>
           <input
             type="search"
-            className="block w-full py-2 pl-10 bg-gray-100 rounded outline-none"
+            className="block w-full py-2 pl-10 pr-4 bg-gray-700 rounded-full placeholder-gray-400 focus:outline-none border-gray-700"
             name="search"
-            placeholder="Search"
+            placeholder="Search chat"
             value={searchTerm}
             onChange={handleInputChange}
             required
