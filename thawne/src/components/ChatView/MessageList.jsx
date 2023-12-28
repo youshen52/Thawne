@@ -44,8 +44,8 @@ function MessageList({ messages }) {
   };
 
   const getDateStamp = (dateList) => {
-    const date = new Date(dateList)
-
+    const date = new Date(dateList);
+    date.setUTCHours(date.getUTCHours() + 8);
     const getDate = date.getDate();
     const getTime = date.getTime();
     const getMonth = date.getMonth();
