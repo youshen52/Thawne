@@ -62,7 +62,7 @@ function Login({ setToken }) {
               </div>
             </div>
 
-            <div className='text-center mt-2 py-1 px-2 cursor-pointer rounded-lg bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300'>
+            <div className='text-center mt-6 py-1 px-2 cursor-pointer rounded-lg bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300'>
               <button type="submit">Log In</button>
             </div>
           </Form>
