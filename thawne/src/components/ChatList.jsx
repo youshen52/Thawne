@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import useToken from '../hooks/useToken';
 import { reflectAllChats } from '../api/chatApi';
+import SearchBar from './ChatList/SearchBar'; 
 
 
 
@@ -9,6 +10,8 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
   const { token } = useToken();
   const [password, setPassword] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredChatList, setFilteredChatList] = useState(chatList);
 
 
   useEffect(() => {
@@ -19,6 +22,15 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
 
     fetchData();
   }, [token, setChatList]);
+
+  useEffect(() => {
+    const filteredList = chatList.filter((chat) =>
+      chat.chat_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredChatList(filteredList);
+  }, [searchTerm, chatList]);
+
+
 
   const handleChatClick = async (index, securityLevel) => {
     if (securityLevel === 'Top Secret' || securityLevel === 'Sensitive') {
@@ -54,9 +66,10 @@ function ChatList({ chatList, setChatList, handleChatSelect, openVerifyChatModal
 
   return (
     <>
+    <SearchBar onSearch={setSearchTerm} />
       <div>
         <h2 className="my-4 ml-4 text-lg text-white font-semibold">Chats</h2>
-        {chatList.map((chat, index) => (
+        {filteredChatList.map((chat, index) => (
           <div
             className={`rounded-xl cursor-pointer transition duration-300 ease-in-out ${
               activeChat === index ? 'bg-zinc-700' : 'hover:bg-zinc-700'

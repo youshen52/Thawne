@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-
 import useToken from '../hooks/useToken';
 import API_CONFIG from '../config/api';
-
 import ChatList from '../components/ChatList';
 import ChatView from '../components/ChatView';
 import VerifyChatModal from '../components/modals/VerifyChatModal';
 
-
 function ChatPage({ handleChatSelect, selectedChat }) {
   const [password, setPassword] = useState('');
-  const[currentChatInfo, setcurrentChatInfo] = useState({})
+  const [currentChatInfo, setcurrentChatInfo] = useState({});
   const [chatList, setChatList] = useState([]);
   const [verifyChatModalIndex, setVerifyChatModalIndex] = useState(null);
   const [activeChat, setActiveChat] = useState(null);
+  const [isDetailsOpen, setDetailsOpen] = useState(false);
   const { token } = useToken();
 
   const openVerifyChatModal = (index) => {
@@ -38,8 +36,6 @@ function ChatPage({ handleChatSelect, selectedChat }) {
           pass: password,
         }),
       }).then((response) => response.json());
-      console.log(response);
-
 
       if (response.success) {
         closeVerifyChatModal();
@@ -47,23 +43,19 @@ function ChatPage({ handleChatSelect, selectedChat }) {
         handleChatSelect(selectedChat);
         setActiveChat(verifyChatModalIndex);
         setcurrentChatInfo({
-          chat_id : chatList[verifyChatModalIndex].chat_id,
+          chat_id: chatList[verifyChatModalIndex].chat_id,
           userId: token,
           seclvl: chatList[verifyChatModalIndex].security_level,
-          pass: password
+          pass: password,
         });
-
-      } else{
+      } else {
         console.error('Incorrect password');
-
       }
     } catch (error) {
       console.error('Error processing password submission:', error);
     }
   };
 
-
-  
   return (
     <>
       <div className="flex bg-zinc-800 h-full border-black">
@@ -76,11 +68,16 @@ function ChatPage({ handleChatSelect, selectedChat }) {
             chatList={chatList}
             setChatList={setChatList}
             setcurrentChatInfo={setcurrentChatInfo}
-            
           />
         </div>
-        <div className="container w-screen">
-          <ChatView selectedChat={selectedChat} chatList={chatList} currentChatInfo={currentChatInfo} />
+        <div className="container w-screen relative">
+          <ChatView
+            selectedChat={selectedChat}
+            chatList={chatList}
+            isDetailsOpen={isDetailsOpen}
+            currentChatInfo={currentChatInfo}
+            setDetailsOpen={setDetailsOpen}
+          />
         </div>
       </div>
 
