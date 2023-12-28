@@ -11,7 +11,7 @@ function NavBar({ openModal }) {
     const handleLogout = () => {
         logout();
         window.location.reload();
-      };
+    };
 
     return(
         <>
