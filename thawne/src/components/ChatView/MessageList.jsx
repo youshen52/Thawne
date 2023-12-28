@@ -45,6 +45,9 @@ function MessageList({ messages }) {
 
   const getDateStamp = (dateList) => {
     const date = new Date(dateList)
+
+    date.setUTCHours(date.getUTCHours() + 8);
+    
     const getDate = date.getDate()
     const getTime = date.getTime()
     const todayTime = todayDate.getTime()
@@ -65,7 +68,7 @@ function MessageList({ messages }) {
       </div>
       )
     }
-    else if(Difference_In_Days == 1){
+    else if (Difference_In_Days == 1) {
       dateTrack.push(getDate)
       return (
         <div className="flex justify-center mb-2">
@@ -73,7 +76,7 @@ function MessageList({ messages }) {
             Yesterday
           </div>
         </div>
-        )
+      )
     }
     else if(1 <  Difference_In_Days < 7){
       dateTrack.push(getDate)
@@ -88,7 +91,7 @@ function MessageList({ messages }) {
   }
 
 
- 
+
   return (
     <div className="relative w-full p-6 overflow-y-auto h-[40rem] " style={{ 
       backgroundImage: `url("/images/chatWallpaper.jpg")`
