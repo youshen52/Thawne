@@ -46,12 +46,13 @@ function MessageList({ messages }) {
   const getDateStamp = (dateList) => {
     const date = new Date(dateList)
 
-    date.setUTCHours(date.getUTCHours() + 8);
-    
-    const getDate = date.getDate()
-    const getTime = date.getTime()
-    const todayTime = todayDate.getTime()
-    let Difference_In_Time = todayTime - getTime
+    const getDate = date.getDate();
+    const getTime = date.getTime();
+    const getMonth = date.getMonth();
+    const getYear = date.getYear();
+    const todayTime = todayDate.getTime();
+    const fullDate = getDate + '/' + getMonth + '/' + getYear
+    let Difference_In_Time = todayTime - getTime;
     let Difference_In_Days = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
 
     if(dateTrack.includes(getDate)){
@@ -84,6 +85,16 @@ function MessageList({ messages }) {
         <div className="flex justify-center mb-2">
           <div className="bg-white text-gray-800 px-4 py-2 rounded-full text-sm italic">
             {weekday[date.getDay()]}
+          </div>
+        </div>
+        )
+    }
+    else{
+      dateTrack.push(getDate)
+      return (
+        <div className="flex justify-center mb-2">
+          <div className="bg-white text-gray-800 px-4 py-2 rounded-full text-sm italic">
+            {fullDate}
           </div>
         </div>
         )
