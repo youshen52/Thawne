@@ -24,21 +24,20 @@ const FileCarousel = () => {
     return (
         <div className="flex items-center">
         {startIndex > 0 && (
-            <button className="carousel-button mr-2" onClick={prevSlide}>
-            &lt;
+            <button className="carousel-button mr-2 text-white" onClick={prevSlide}>
+            <ion-icon name="chevron-back-outline"></ion-icon>
             </button>
         )}
         <div className="flex space-x-2 transition-transform duration-300 ease-in-out transform translate-x-[-${startIndex * (100 / visibleFiles.length)}%]">
             {visibleFiles.map((file) => (
             <div key={file.id} className="file-slide">
                 <img src={file.imageUrl} alt={file.name} className="w-16 h-16 object-cover" />
-                <p className="text-xs">{file.name}</p>
             </div>
             ))}
         </div>
         {startIndex + Math.min(4, files.length) < files.length && (
-            <button className="carousel-button ml-2" onClick={nextSlide}>
-            &gt;
+            <button className="carousel-button ml-2 text-white" onClick={nextSlide}>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
             </button>
         )}
         </div>
