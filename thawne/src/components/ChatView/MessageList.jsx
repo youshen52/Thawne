@@ -49,12 +49,12 @@ function MessageList({ messages }) {
     const getDate = date.getDate();
     const getTime = date.getTime();
     const getMonth = date.getMonth();
-    const getYear = date.getYear();
+    const getYear = date.getFullYear();
     const todayTime = todayDate.getTime();
     const fullDate = getDate + '/' + getMonth + '/' + getYear
     let Difference_In_Time = todayTime - getTime;
     let Difference_In_Days = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
-
+    
     if(dateTrack.includes(getDate)){
       return null
     }
@@ -79,7 +79,7 @@ function MessageList({ messages }) {
         </div>
       )
     }
-    else if(1 <  Difference_In_Days < 7){
+    else if(Difference_In_Days < 7){
       dateTrack.push(getDate)
       return (
         <div className="flex justify-center mb-2">

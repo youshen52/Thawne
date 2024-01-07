@@ -38,13 +38,13 @@ function VerifyChatModal({ handlePasswordSubmit, closeVerifyChatModal }) {
               <div className="flex justify-between">
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-all ease-in-out duration-300"
                 >
                   Submit
                 </button>
                 <button
                   onClick={closeVerifyChatModal}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md"
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-all ease-in-out duration-300"
                 >
                   Close
                 </button>
